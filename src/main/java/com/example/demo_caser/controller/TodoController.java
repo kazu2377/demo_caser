@@ -2,7 +2,6 @@ package com.example.demo_caser.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +15,11 @@ import com.example.demo_caser.service.TodoService;
 @Controller
 public class TodoController {
     
-    @Autowired
-    private TodoService todoService;
+    private final TodoService todoService;
+    
+    public TodoController(TodoService todoService) {
+        this.todoService = todoService;
+    }
     
     @GetMapping("/todos")
     public String listTodos(Model model) {

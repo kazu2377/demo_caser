@@ -3,7 +3,6 @@ package com.example.demo_caser.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo_caser.model.Todo;
@@ -12,8 +11,11 @@ import com.example.demo_caser.repository.TodoRepository;
 @Service
 public class TodoService {
     
-    @Autowired
-    private TodoRepository todoRepository;
+    private final TodoRepository todoRepository;
+    
+    public TodoService(TodoRepository todoRepository) {
+        this.todoRepository = todoRepository;
+    }
     
     public List<Todo> getAllTodos() {
         return todoRepository.findAll();
