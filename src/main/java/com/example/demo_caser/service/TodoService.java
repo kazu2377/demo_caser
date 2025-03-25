@@ -1,7 +1,6 @@
 package com.example.demo_caser.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -22,26 +21,26 @@ public class TodoService {
     }
     
     public Todo getTodoById(Long id) {
-        Optional<Todo> todoOptional = todoRepository.findById(id);
-        return todoOptional.orElse(null);
+        return todoRepository.findById(id);
     }
     
     public Todo createTodo(String title) {
         Todo todo = new Todo(title);
-        return todoRepository.save(todo);
+        todoRepository.save(todo);
+        return todo;
     }
     
     public Todo updateTodo(Long id, String title, Boolean completed) {
-        Optional<Todo> todoOptional = todoRepository.findById(id);
-        if (todoOptional.isPresent()) {
-            Todo todo = todoOptional.get();
+        Todo todo = todoRepository.findById(id);
+        if (todo != null) {
             if (title != null) {
                 todo.setTitle(title);
             }
             if (completed != null) {
                 todo.setCompleted(completed);
             }
-            return todoRepository.save(todo);
+            todoRepository.update(todo);
+            return todo;
         }
         return null;
     }
@@ -49,4 +48,4 @@ public class TodoService {
     public void deleteTodo(Long id) {
         todoRepository.deleteById(id);
     }
-} 
+}
