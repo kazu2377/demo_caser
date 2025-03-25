@@ -69,6 +69,11 @@
             text-decoration: line-through;
             color: #7f8c8d;
         }
+        .created-date {
+            font-size: 0.8rem;
+            color: #95a5a6;
+            margin-left: 10px;
+        }
         .action-button {
             margin-left: 5px;
             padding: 5px 10px;
@@ -114,6 +119,7 @@
         <ul class="todo-list" th:unless="${todos.empty}">
             <li class="todo-item" th:each="todo : ${todos}">
                 <span class="todo-title" th:text="${todo.title}" th:class="${todo.completed ? 'todo-title completed' : 'todo-title'}"></span>
+                <span class="created-date" th:text="${#temporals.format(todo.createdAt, 'yyyy/MM/dd HH:mm')}"></span>
                 <form th:if="${!todo.completed}" th:action="@{/todos/{id}/complete(id=${todo.id})}" method="post" style="display:inline;">
                     <button type="submit" class="action-button complete-button">完了</button>
                 </form>
